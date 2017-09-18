@@ -57,8 +57,19 @@
     .swiper-button-prev, .swiper-button-next {
         display: none;
     }
-    body.fp-viewing-0 .swiper-button-prev, body.fp-viewing-0 .swiper-button-next {
+    body.fp-viewing-0 .swiper-button-prev, 
+    body.fp-viewing-0 .swiper-button-next,    
+    body.fp-viewing-firstPage .swiper-button-prev, 
+    body.fp-viewing-firstPage .swiper-button-next {
         display: block;
+    }
+    .slide {
+        background: #ccc;
+    }
+
+    a.fullpage-back {
+        position: absolute;
+        z-index: 999;
     }
     </style>
 </head>
@@ -66,29 +77,39 @@
     <!-- Swiper -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Message</div>
             <div class="swiper-slide">
                 <!-- fullpage -->
                 <div id="fullpage" class="fullpage">
-                    <div class="section">Vertical First section</div>
                     <div class="section">
-                        <div class="slide">Horizontal Slide 1 </div>
-                        <div class="slide">Horizontal Slide 2 </div>
-                        <div class="slide">Horizontal Slide 3 </div>
-                        <div class="slide">Horizontal Slide 4 </div>
+                        <h1>Wildlife</h1>
+                        <a href="#secondPage">Read More</a>
+                    </div>
+                    <div class="section">
+                        <a href="#firstPage" class="fullpage-back">Back</a>
+                        <div class="slide">Wildlife Story 1 </div>
+                        <div class="slide">Wildlife Story 2 </div>
+                        <div class="slide">Wildlife Story 3 </div>
+                        <div class="slide">Wildlife Story 4 </div>
                     </div>
                 </div>
             </div>
+
             <div class="swiper-slide">
-                <!-- fullpage -->
+
                 <div id="fullpage" class="fullpage">
-                    <div class="section">Vertical Second section</div>
                     <div class="section">
-                        <div class="slide">Second Horizontal Slide 1 </div>
-                        <div class="slide">Second Horizontal Slide 2 </div>
+                        <h1>Forest</h1>
+                        <a href="#secondPage">Read More</a>
+                    </div>
+                    <div class="section">
+                        <a href="#firstPage" class="fullpage-back">Back</a>
+                        <div class="slide">Forest 1 </div>
+                        <div class="slide">Forest 2 </div>
                     </div>
                 </div>
             </div>
+
             <div class="swiper-slide">Slide 4</div>
             <div class="swiper-slide">Slide 5</div>
         </div>
@@ -112,7 +133,8 @@
     <!-- This following line is only necessary in the case of using the option `scrollOverflow:true` -->
     <script type="text/javascript" src="fullpage/vendors/scrolloverflow.min.js"></script>
 
-    <script type="text/javascript" src="fullpage/jquery.fullPage.js"></script>
+    <!-- <script type="text/javascript" src="fullpage/jquery.fullPage.js"></script> -->
+    <script type="text/javascript" src="fullpage/jquery.fullpage.extensions.min.js"></script>
 
 
 
@@ -124,17 +146,51 @@
         paginationClickable: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        spaceBetween: 30
+        spaceBetween: 30,
+        // mousewheelControl: true //problem in fullpage
     });
 
 
     // Initialize fullpage
     $(document).ready(function() {
         $('.fullpage').fullpage({
+
+            // Navigation
+            anchors: [
+                'firstPage', 
+                'secondPage', 
+                ],
             slidesNavigation: true,
 
-            keyboardScrolling: false,
+            //Scrolling
+            loopHorizontal: false,
+            scrollHorizontally: true, //mouse wheel
+            continuousVertical: false,
+            continuousHorizontal: false,
+            dragAndMove: false,
+            touchSensitivity: 15,
+
+            // Accessibility
+            keyboardScrolling: false, //affects even though fullpage js is not visible
+            //just to go down in fullpage js
+            recordHistory: false,
+
+            //Design
+            controlArrows: true,
+            verticalCentered: true,
+            /*paddingTop: '3em',
+            paddingBottom: '10px',
+            fixedElements: '#header, .footer',
+            responsiveWidth: 0,
+            responsiveHeight: 0,
+            responsiveSlides: false,
+            parallax: false,
+            parallaxOptions: {type: 'reveal', percentage: 62, property: 'translate'},*/
+
         });
+        //disable mouse scrolling
+        $.fn.fullpage.setMouseWheelScrolling(false);
+        $.fn.fullpage.setAllowScrolling(false);
     });
     </script>
 </body>
